@@ -15,11 +15,18 @@ public final class ModuleEntry extends XposedModule {
     private static final String TARGET_PACKAGE = "com.netease.cloudmusic";
     private static final String TAG = "NeteaseQQRegisterHelper";
 
+    // Each module entry is instantiated in the process where it is loaded.
+    private String loadedProcessName = "unknown";
+
     @Override
     public void onModuleLoaded(XposedModuleInterface.ModuleLoadedParam param) {
-        log(Log.INFO, TAG, "Module initialized; framework=" + getFrameworkName()
-                + ", version=" + getFrameworkVersion()
-                + ", api=" + getApiVersion());
+        loadedProcessName = param.getProcessName();
+
+        log(Log.INFO, TAG, "Module initialized"
+                + "; process=" + loadedProcessName
+                + "; framework=" + getFrameworkName()
+                + "; version=" + getFrameworkVersion()
+                + "; api=" + getApiVersion());
     }
 
     @Override
@@ -27,7 +34,10 @@ public final class ModuleEntry extends XposedModule {
         if (!TARGET_PACKAGE.equals(param.getPackageName())) {
             return;
         }
-        log(Log.INFO, TAG, "Target package loaded: " + param.getPackageName()
-                + ", process=" + param.getProcessName());
+
+        log(Log.INFO, TAG, "Target package loaded"
+                + "; package=" + param.getPackageName()
+                + "; process=" + loadedProcessName
+                + "; firstPackage=" + param.isFirstPackage());
     }
 }
