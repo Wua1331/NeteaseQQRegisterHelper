@@ -1,28 +1,40 @@
 package dev.wua1331.neteaseqqregisterhelper;
 
-import de.robv.android.xposed.IXposedHookLoadPackage;
-import de.robv.android.xposed.XposedBridge;
-import de.robv.android.xposed.callbacks.XC_LoadPackage;
+import android.util.Log;
+
+import io.github.libxposed.api.XposedModule;
+import io.github.libxposed.api.XposedInterface;
 
 /**
- * Diagnostic-only entry point.
+ * Modern libxposed entry point for Vector.
  *
- * This module deliberately does not intercept registration, authentication,
- * network responses, phone verification, or account state.
+ * Diagnostic-only: this module does not intercept authentication, registration,
+ * network traffic, phone verification, or account state.
  */
-public final class ModuleEntry implements IXposedHookLoadPackage {
+public final class ModuleEntry extends XposedModule {
     private static final String TARGET_PACKAGE = "com.netease.cloudmusic";
-    private static final String TAG = "[NeteaseQQRegisterHelper]";
+    private static final String TAG = "NeteaseQQRegisterHelper";
 
     @Override
-    public void handleLoadPackage(XC_LoadPackage.LoadPackageParam lpparam) {
-        if (!TARGET_PACKAGE.equals(lpparam.packageName)) {
+    public void onModuleLoaded() {
+        log(TAG + ": module initialized by " + getFrameworkName()
+                + " version=" + getFrameworkVersion());
+    }
+
+    @Override
+    public void onPackageLoaded(XposedInterface.PackageLoadedParam param) {
+        if (!TARGET_PACKAGE.equals(param.getPackageName())) {
             return;
         }
+        log(TAG + ": target package loaded: " + param.getPackageName()
+                + ", process=" + param.getProcessName());
+    }
 
-        XposedBridge.log(TAG + " loaded into target process"
-                + " package=" + lpparam.packageName
-                + " process=" + lpparam.processName
-                + " firstApplication=" + lpparam.isFirstApplication);
+    private static void log(String message) {
+        try {
+            Log.i(TAG, message);
+        } catch (Throwable ignored) {
+            // Avoid crashing the target process if logging is unavailable.
+        }
     }
 }
