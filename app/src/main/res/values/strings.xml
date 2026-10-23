@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Netease QQ Register Helper (Diagnostics)</string>
+    <string name="app_description">Diagnostic-only module for NetEase Cloud Music.</string>
+</resources>
