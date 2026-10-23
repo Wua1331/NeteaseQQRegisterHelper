@@ -3,15 +3,6 @@
     <application
         android:allowBackup="false"
         android:label="Netease QQ Register Helper (Diagnostics)"
-        android:supportsRtl="true">
-        <meta-data
-            android:name="xposedmodule"
-            android:value="true" />
-        <meta-data
-            android:name="xposeddescription"
-            android:value="Diagnostic-only module for observing target app load state." />
-        <meta-data
-            android:name="xposedminversion"
-            android:value="82" />
-    </application>
+        android:description="Diagnostic-only module for NetEase Cloud Music"
+        android:supportsRtl="true" />
 </manifest>
