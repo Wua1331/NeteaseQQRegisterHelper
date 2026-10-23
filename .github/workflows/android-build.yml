@@ -38,10 +38,13 @@ jobs:
       - name: Verify libxposed metadata in APK
         shell: bash
         run: |
+          set -euo pipefail
           APK="app/build/outputs/apk/debug/app-debug.apk"
+          test -s "$APK"
           unzip -l "$APK" | grep -F "META-INF/xposed/java_init.list"
           unzip -p "$APK" "META-INF/xposed/java_init.list" | grep -Fx "dev.wua1331.neteaseqqregisterhelper.ModuleEntry"
           unzip -p "$APK" "META-INF/xposed/module.prop" | grep -Fx "minApiVersion=102"
+          unzip -p "$APK" "META-INF/xposed/module.prop" | grep -Fx "exceptionMode=protective"
           unzip -p "$APK" "META-INF/xposed/scope.list" | grep -Fx "com.netease.cloudmusic"
 
       - name: Upload debug APK
