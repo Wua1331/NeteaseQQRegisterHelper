@@ -10,8 +10,8 @@ android {
         applicationId = "dev.wua1331.neteaseqqregisterhelper"
         minSdk = 26
         targetSdk = 35
-        versionCode = 1
-        versionName = "0.1.0"
+        versionCode = 2
+        versionName = "0.2.0"
     }
 
     buildTypes {
@@ -27,7 +27,7 @@ android {
 }
 
 dependencies {
-    // Vector supports the legacy Xposed API. Compile-only keeps the framework API
-    // out of the APK; the host framework supplies it at runtime.
-    compileOnly("de.robv.android.xposed:api:82")
+    // Vector v2.2 is designed around modern libxposed APIs.
+    // Keep the framework API compile-only; it is provided by Vector at runtime.
+    compileOnly("io.github.libxposed:api:102.0.0")
 }
