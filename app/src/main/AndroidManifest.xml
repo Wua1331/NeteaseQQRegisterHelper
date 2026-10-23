@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
     <application
         android:allowBackup="false"
-        android:label="Netease QQ Register Helper (Diagnostics)"
-        android:description="Diagnostic-only module for NetEase Cloud Music"
+        android:label="@string/app_name"
+        android:description="@string/app_description"
         android:supportsRtl="true" />
 </manifest>
